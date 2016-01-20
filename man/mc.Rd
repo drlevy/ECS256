@@ -16,6 +16,6 @@ Markov chain definition.
 
 \describe{
 \item{\code{pijdef}}{is either a square finite transition matrix
-or a function(i, j) defining a potentially infinite transition matrix.}
+or a function(i, j) defining a (potentially) infinite transition matrix.}
 }}
 
