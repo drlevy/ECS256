@@ -1,0 +1,14 @@
+Package: mc
+Type: Package
+Title: Markov Chain
+Version: 0.1
+Date: 2016-01-17
+Authors@R: 
+  c(person("Charles", "Henderson", email = "cdhenderson@ucdavis.edu", role = c("aut")),
+  person("Daniel", "Levy", email = "drlevy@ucdavis.edu", role = c("aut", "cre")),
+  person("Luan", "Nguyen", email = "lounguyen@ucdavis.edu", role = c("aut")))
+Description: 
+  Finds stationary distribution vector and expected hitting times for a defined markov chain.
+License: MIT
+LazyData: TRUE
+RoxygenNote: 5.0.1
