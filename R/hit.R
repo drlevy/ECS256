@@ -12,8 +12,8 @@ hit <- function(mc, e = 0.01) {
   if (class(mc$pijdef) == "function") {
     statesInConverged <- NROW(stn (mc, e))
     convergedTransitionMatrix <- matrix(rep(0, statesInConverged*statesInConverged), nrow=statesInConverged)
-    for (i in 1:numberStatesInConverged) {
-      for (j in 1:numberStatesInConverged) {
+    for (i in 1:statesInConverged) {
+      for (j in 1:statesInConverged) {
         convergedTransitionMatrix[i, j] = mc$pijdef(i, j)
       }
     }

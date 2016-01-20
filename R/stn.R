@@ -2,7 +2,7 @@
 #' @param mc of type mc containing a defined pijdef.
 #' @param e floating point convergence criterion for infinite pijdef.
 #' @return The stationary distribution vector for mc$pijdef.
-#' #' TODO examples
+#' TODO examples
 #' @export
 stn <- function(mc, e = 0.01) {
   validateInput(mc)
