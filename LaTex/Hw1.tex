@@ -6,11 +6,13 @@
 \usepackage[width=14.00cm, height=25.00cm]{geometry}
 \begin{document}
 \section{Part 1}
+\subsection*{Markov Chain}
 We have two states :{Old box, New box}. \\
 The system is in ``New box'' when we have exactly one item in the current box that is being filled. The system is in ``Old box'' when the current box contains more than one item.\\
-$ X_n $ is the random variable for the weight of the current box at time n.\\
-$ W_n $ is the weight of incoming item at time n.\\
+$ X $ is the random variable for the weight of the current box.\\
+$ W $ is the random variable for the weight of incoming item.\\
 
+\subsection*{Transition matrix}
 The transition probabilities are as follows:\\
 $ P_{NN} $ is the probability of going from state ``New box'' to state ``New box''. This happens when the weight of the new box (that has a single item) plus the incoming item exceeds the maximum allowed. Hence, we have a transition from one new box to another new box.\\
 $ P_{ON} $ is the probability of going from state ``Old box'' to state ``New box''. This happens when the weight of the current box plus the new item exceeds the maximum weight. Hence, we have a transition to a new box to accommodate the newest item.\\
@@ -19,26 +21,37 @@ $ P_{OO} $ is the probability of going from state ``Old box'' to state ``Old box
 
 Mathematically, by conditioning on the item at time $ n $ we have:\\
 \begin{align*}
-P_{NN} &= P_{ON} &= P(X_n > w_{max} -W_n) &= \sum\limits_{k=1}^{w_{max}} P(X_n > w_{max} -W_n | W_n=k)\cdot P(W_n=k)  \\
-P_{OO} &= P_{NO} &= P(X_n \leq w_{max} -W_n) &=\sum\limits_{k=1}^{w_{max}} P(X_n \leq w_{max} -W_n | W_n=k)\cdot P(W_n=k) \\
+P_{NN} &= P_{ON} &= P(X > w_{max} -W) &= \sum\limits_{k=1}^{w_{max}} P(X > w_{max} -W | W=k)\cdot P(W=k)  \\
+P_{OO} &= P_{NO} &= P(X \leq w_{max} -W) &=\sum\limits_{k=1}^{w_{max}} P(X \leq w_{max} -W | W=k)\cdot P(W=k) \\
 \end{align*}
-Now, $ P(X_n \leq w_{max} -W_n | W_n=k) $ is the probability that the weight of the current box is larger than $ w_{max} - k $. That is, $ P(X_n \leq w_{max} -X_n | W_n=k) = P(X_n \leq w_{max} -k)$. In the limit as $ n $ approaches $ \infty $:\\
+Now, $ P(X \leq w_{max} -W | W=k) $ is the probability that the weight of the current box is less than or equal to $ w_{max} - k $. \\
 \begin{align*}
-P(X_n \leq w_{max} -k)= \sum_{i \leq k} \pi_i
+P(X \leq w_{max} - W| W=k) &= P(X \leq w_{max} -k)\\
+&= \sum_{i \leq w_{max}-k} P(X = i) \\
+&= \sum_{i \leq w_{max} - k} \pi_i \\
 \end{align*}
-In other words, the probability that the weight of the current box is less than or equal to $ w_{max} - k $ is the sum of the stationary probabilities  $ P(W=w_1),P(W=w_2),...,P(W=w_k) $.\\
+Where $\pi_i$ the stationary probability that the current box weighs $w_i$ (calculated in Part 2). \\
+In other words, the probability that the current box weighs more than $ w_{max} - k $ is the long run probability that box weighs $1$ plus the long run probability that the box weighs $2$, and so on up to $ w_{max} - k $. \\
+
 Similarly, we have \\
 \begin{align*}
-P(X_n > w_{max}-k)= \sum_{i > w_{max} -k} \pi_i 
+P(X > w_{max} -W | W=k) &= \sum_{i > w_{max}-k} P(X = i)\\ 
+&= \sum_{i > w_{max} -k} \pi_i \\
+\end{align*}
+
+Putting everything together, \\
+\begin{align*}
+P_{NN} &= P_{ON} = \sum\limits_{k=1}^{w_{max}} \left(\sum_{i \leq w_{max} -k} \pi_i \right) \cdot P(W=k)  \\
+P_{NO} &= P_{OO} = \sum\limits_{k=1}^{w_{max}} \left(\sum_{i > w_{max} -k} \pi_i \right) \cdot P(W=k) \\
 \end{align*}
 
 
-
+\subsection*{Solution}
 Finally, the long run average number of items in any box is the average time for a system in state N to return to state N. This is $ E(T_{NN}) $, where T is the random variable for hitting times. \\
 To find $ E(T_{NN}) $, we follow the similar argument in the book. \\
 First, we condition on the first stop $ U $. 
 \begin{align*}
-E(T_{NN}) = P_{N,O}\cdot E(T_{NN}|U=O)+P_{N,N}\cdot E(T_{NN}|U=N)
+E(T_{NN}) = P_{NO}\cdot E(T_{NN}|U=O)+P_{N,N}\cdot E(T_{NN}|U=N)
 \end{align*}
 where,\\
 \begin{align*}
