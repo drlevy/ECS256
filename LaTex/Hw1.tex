@@ -1,0 +1,78 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[width=14.00cm, height=25.00cm]{geometry}
+\begin{document}
+\section{Part 1}
+We have two states :{Old box, New box}. \\
+The system is in ``New box'' when we have exactly one item in the current box that is being filled. The system is in ``Old box'' when the current box contains more than one item.\\
+$ W_n $ is the random variable for the weight of the current box at time n.\\
+$ X_n $ is the weight of incoming item at time n.\\
+
+The transition probabilities are as follows:\\
+$ P_{N,N} $ is the probability of going from state ``New box'' to state ``New box''. This happens when the weight of the new box (that has a single item) plus the incoming item exceeds the maximum allowed. Hence, we have a transition from one new box to another new box.\\
+$ P_{O,N} $ is the probability of going from state ``Old box'' to state ``New box''. This happens when the weight of the current box plus the new item exceeds the maximum weight. Hence, we have a transition to a new box to accommodate the newest item.\\
+$ P_{N,O} $ is the probability of going from state ``New box'' to state ``Old box''. This happens when the new box is able to accept the newest item and thereby becoming an ``Old box''.\\
+$ P_{O,O} $ is the probability of going from state ``Old box'' to state ``Old box''. This happens when our current box (with 2 or more items) can accommodate the newest item while maintaining maximum weight. Therefore, there is not a need for a new box. \\
+
+Mathematically, by conditioning on the incoming item at time $ n $ we have:\\
+\begin{align*}
+P_{N,N} &= P_{O,N} &= P(W_n > w_{max} -X_n) &= \sum\limits_{n=1}^{w_{max}} P(W_n > w_{max} -X_n | X_n=k)\cdot P(X_n=k)  \\
+P_{O,O} &= P_{N,O} &= P(W_n \leq w_{max} -X_n) &=\sum\limits_{n=1}^{w_{max}} P(W_n \leq w_{max} -X_n | X_n=k)\cdot P(X_n=k) \\
+\end{align*}
+Now, $ P(W_n \leq w_{max} -X_n | X_n=k) $ is the probability that the weight of the current box is larger than $ w_{max} - k $. That is, $ P(W_n \leq w_{max} -X_n | X_n=k) = P(W_n \leq w_{max} -k)$. Assuming aperiodic, in the limit as $ n $ approaches $ \infty $:\\
+\begin{align*}
+P(W_n \leq w_{max} -k)= \sum_{i \leq k} \pi_i
+\end{align*}
+In other words, the probability that the weight of the current box is less than or equal to $ w_{max} - k $ is the sum of the stationary probabilities  $ P(W=w_1),P(W=w_2),...,P(W=w_k) $.\\
+Similarly, we have \\
+\begin{align*}
+P(W_n > w_{max}-k)= \sum_{i > w_{max} -k} \pi_i 
+\end{align*}
+
+
+
+Finally, the long run average number of items in any box is the average time for a system in state N to return to state N. This is $ E(T_{NN}) $, where T is the random variable for hitting times. \\
+To find $ E(T_{NN}) $, we follow the similar argument in the book. \\
+First, we condition on the first stop $ U $. 
+\begin{align*}
+E(T_{NN}) = P_{N,O}\cdot E(T_{NN}|U=O)+P_{N,N}\cdot E(T_{NN}|U=N)
+\end{align*}
+where,\\
+\begin{align*}
+E(T_{NN}|U=N) &= 1 \\
+E(T_{NN}|U=O) &= 1+E(T_{ON})
+\end{align*}
+Simplifying the above, we arrive at\\
+\begin{align*}
+E(T_{NN}) = 1+ P_{NO}\cdot E(T_{ON})
+\end{align*}
+By repeating the same argument for $ E(T_{ON} $, we find \\
+\begin{align*}
+E(T_{ON}) = 1+ P_{OO}\cdot E(T_{ON})
+\end{align*}
+Hence, 
+\begin{align*}
+E(T_{ON}) = \frac{1}{1 - P_{OO}}
+\end{align*}
+Putting this back in our previous expression of $ E(T_{NN}) $
+\begin{align*}
+E(T_{NN}) = 1+ \frac{P_{NO}}{1 - P_{OO}}
+\end{align*}
+
+
+\section{Part 2}
+
+
+
+\section{Part 3}
+
+
+
+
+
+\end{document}
+
+
