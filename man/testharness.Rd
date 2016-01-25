@@ -20,4 +20,9 @@ The example matrix that is created reflects the following problems:
  The infinite case creates a function that represents an infinite matrix and a birth/death process of having the probability of 0.4 for birth and 0.6 for death.
 All infinite case calculations are done with a convergence criterion of 0.1.
 }
+\examples{
+testharness(TRUE,TRUE)
+testharness(FALSE,TRUE)
+testharness(FALSE,FALSE)
+}
 

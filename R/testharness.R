@@ -6,6 +6,10 @@
 #' @param use_finite_state boolean that indicates if you want to use a finite state(TRUE) matrix or infinite(FALSE)
 #' @param calculate_stationary_dist boolean that indicates if you want to calculate the stationary distrubtion(TRUE) or expected hitting times(FALSE)
 #' @return The stationary distribution or expected hitting times of the indicated matrix.
+#' @examples 
+#' testharness(TRUE,TRUE)
+#' testharness(FALSE,TRUE)
+#' testharness(FALSE,FALSE)
 #' @export
 testharness <- function(use_finite_state = TRUE, calculate_stationary_dist = TRUE)
 {
