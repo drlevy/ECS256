@@ -1,8 +1,8 @@
-#' Find stationary distribution.
+#' @title Find stationary distribution
+#' @description Input an mc to get a vector of stationary probabilities for each markov state.
 #' @param mc of type mc containing a defined pijdef.
 #' @param e floating point convergence criterion for infinite pijdef.
 #' @return The stationary distribution vector for mc$pijdef.
-#' TODO examples
 #' @export
 stn <- function(mc, e = 0.01) {
   validateInput(mc)

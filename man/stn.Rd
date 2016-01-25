@@ -2,7 +2,7 @@
 % Please edit documentation in R/stn.R
 \name{stn}
 \alias{stn}
-\title{Find stationary distribution.}
+\title{Find stationary distribution}
 \usage{
 stn(mc, e = 0.01)
 }
@@ -13,9 +13,8 @@ stn(mc, e = 0.01)
 }
 \value{
 The stationary distribution vector for mc$pijdef.
-TODO examples
 }
 \description{
-Find stationary distribution.
+Input an mc to get a vector of stationary probabilities for each markov state.
 }
 

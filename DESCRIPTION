@@ -9,6 +9,6 @@ Authors@R:
   person("Luan", "Nguyen", email = "lounguyen@ucdavis.edu", role = c("aut")))
 Description: 
   Finds stationary distribution vector and expected hitting times for a defined markov chain.
-License: MIT
+License: CC0
 LazyData: TRUE
 RoxygenNote: 5.0.1

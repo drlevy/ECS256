@@ -2,20 +2,15 @@
 % Please edit documentation in R/mc.R
 \name{mc}
 \alias{mc}
-\title{Markov chain definition.}
+\title{Markov chain definition}
 \usage{
 mc(pijdef = NULL)
 }
 \arguments{
-\item{Construct}{and initialize with some pijdef.}
+\item{pijdef}{is either a square finite transition matrix
+or a function(i, j) defining a (potentially) infinite transition matrix.}
 }
 \description{
-Markov chain definition.
+Construct and initialize with some pijdef.
 }
-\section{Slots}{
-
-\describe{
-\item{\code{pijdef}}{is either a square finite transition matrix
-or a function(i, j) defining a (potentially) infinite transition matrix.}
-}}
 

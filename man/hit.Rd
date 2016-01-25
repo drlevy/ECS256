@@ -2,7 +2,7 @@
 % Please edit documentation in R/hit.R
 \name{hit}
 \alias{hit}
-\title{Find expected hitting times.}
+\title{Find expected hitting times}
 \usage{
 hit(mc, e = 0.01)
 }
@@ -13,9 +13,8 @@ hit(mc, e = 0.01)
 }
 \value{
 The submatrix of expected hitting times for mc$pijdef.
-TODO examples
 }
 \description{
-Find expected hitting times.
+Input an mc to get a submatrix of hitting times where M[i,j] is the E(Tij).
 }
 

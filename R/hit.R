@@ -1,8 +1,8 @@
-#' Find expected hitting times.
+#' @title Find expected hitting times
+#' @description Input an mc to get a submatrix of hitting times where M[i,j] is the E(Tij).
 #' @param mc of type mc containing a defined pijdef.
 #' @param e floating point convergence criterion for infinite pijdef.
 #' @return The submatrix of expected hitting times for mc$pijdef.
-#' TODO examples
 #' @export
 hit <- function(mc, e = 0.01) {
   validateInput(mc)
