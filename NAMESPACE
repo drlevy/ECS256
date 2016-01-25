@@ -3,3 +3,4 @@
 export(hit)
 export(mc)
 export(stn)
+export(testharness)

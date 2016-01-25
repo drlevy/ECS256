@@ -13,7 +13,7 @@ stn(mc, e = 0.01)
 }
 \value{
 The stationary distribution vector for mc$pijdef.
-#' TODO examples
+TODO examples
 }
 \description{
 Find stationary distribution.
