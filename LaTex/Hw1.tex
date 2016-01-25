@@ -8,28 +8,28 @@
 \section{Part 1}
 We have two states :{Old box, New box}. \\
 The system is in ``New box'' when we have exactly one item in the current box that is being filled. The system is in ``Old box'' when the current box contains more than one item.\\
-$ W_n $ is the random variable for the weight of the current box at time n.\\
-$ X_n $ is the weight of incoming item at time n.\\
+$ X_n $ is the random variable for the weight of the current box at time n.\\
+$ W_n $ is the weight of incoming item at time n.\\
 
 The transition probabilities are as follows:\\
-$ P_{N,N} $ is the probability of going from state ``New box'' to state ``New box''. This happens when the weight of the new box (that has a single item) plus the incoming item exceeds the maximum allowed. Hence, we have a transition from one new box to another new box.\\
-$ P_{O,N} $ is the probability of going from state ``Old box'' to state ``New box''. This happens when the weight of the current box plus the new item exceeds the maximum weight. Hence, we have a transition to a new box to accommodate the newest item.\\
-$ P_{N,O} $ is the probability of going from state ``New box'' to state ``Old box''. This happens when the new box is able to accept the newest item and thereby becoming an ``Old box''.\\
-$ P_{O,O} $ is the probability of going from state ``Old box'' to state ``Old box''. This happens when our current box (with 2 or more items) can accommodate the newest item while maintaining maximum weight. Therefore, there is not a need for a new box. \\
+$ P_{NN} $ is the probability of going from state ``New box'' to state ``New box''. This happens when the weight of the new box (that has a single item) plus the incoming item exceeds the maximum allowed. Hence, we have a transition from one new box to another new box.\\
+$ P_{ON} $ is the probability of going from state ``Old box'' to state ``New box''. This happens when the weight of the current box plus the new item exceeds the maximum weight. Hence, we have a transition to a new box to accommodate the newest item.\\
+$ P_{NO} $ is the probability of going from state ``New box'' to state ``Old box''. This happens when the new box is able to accept the newest item and thereby becoming an ``Old box''.\\
+$ P_{OO} $ is the probability of going from state ``Old box'' to state ``Old box''. This happens when our current box (with 2 or more items) can accommodate the newest item while maintaining maximum weight. Therefore, there is not a need for a new box. \\
 
-Mathematically, by conditioning on the incoming item at time $ n $ we have:\\
+Mathematically, by conditioning on the item at time $ n $ we have:\\
 \begin{align*}
-P_{N,N} &= P_{O,N} &= P(W_n > w_{max} -X_n) &= \sum\limits_{n=1}^{w_{max}} P(W_n > w_{max} -X_n | X_n=k)\cdot P(X_n=k)  \\
-P_{O,O} &= P_{N,O} &= P(W_n \leq w_{max} -X_n) &=\sum\limits_{n=1}^{w_{max}} P(W_n \leq w_{max} -X_n | X_n=k)\cdot P(X_n=k) \\
+P_{NN} &= P_{ON} &= P(X_n > w_{max} -W_n) &= \sum\limits_{k=1}^{w_{max}} P(X_n > w_{max} -W_n | W_n=k)\cdot P(W_n=k)  \\
+P_{OO} &= P_{NO} &= P(X_n \leq w_{max} -W_n) &=\sum\limits_{k=1}^{w_{max}} P(X_n \leq w_{max} -W_n | W_n=k)\cdot P(W_n=k) \\
 \end{align*}
-Now, $ P(W_n \leq w_{max} -X_n | X_n=k) $ is the probability that the weight of the current box is larger than $ w_{max} - k $. That is, $ P(W_n \leq w_{max} -X_n | X_n=k) = P(W_n \leq w_{max} -k)$. Assuming aperiodic, in the limit as $ n $ approaches $ \infty $:\\
+Now, $ P(X_n \leq w_{max} -W_n | W_n=k) $ is the probability that the weight of the current box is larger than $ w_{max} - k $. That is, $ P(X_n \leq w_{max} -X_n | W_n=k) = P(X_n \leq w_{max} -k)$. In the limit as $ n $ approaches $ \infty $:\\
 \begin{align*}
-P(W_n \leq w_{max} -k)= \sum_{i \leq k} \pi_i
+P(X_n \leq w_{max} -k)= \sum_{i \leq k} \pi_i
 \end{align*}
 In other words, the probability that the weight of the current box is less than or equal to $ w_{max} - k $ is the sum of the stationary probabilities  $ P(W=w_1),P(W=w_2),...,P(W=w_k) $.\\
 Similarly, we have \\
 \begin{align*}
-P(W_n > w_{max}-k)= \sum_{i > w_{max} -k} \pi_i 
+P(X_n > w_{max}-k)= \sum_{i > w_{max} -k} \pi_i 
 \end{align*}
 
 
@@ -68,7 +68,25 @@ E(T_{NN}) = 1+ \frac{P_{NO}}{1 - P_{OO}}
 
 
 \section{Part 3}
+Looking at the system differently, we can model using a different Markov chain:\\
+The states are $ S_1, S_2, S_3, ..., S_m$, where $m$ is $w_{max}$ and $S_i$ represents the state where $w_i$ is the first item in the current box.\\
 
+The transition probability $P_{ij}$ of going from a state $i$ to a state $j\neq i$ is equalled to the probability of needing a new box while in state $i$ (first item is $w_i$) to store a new item weighing $w_j$ (the first item of the new box - state $j$). This probability is:\\
+\begin{align*}
+P_{ij}= P(X_n + w_k > w_{max}) \cdot P( W_n = w_k)= \sum_{i > w_{max} -k} \pi_i \cdot P( W_n = w_k)
+\end{align*}
+To find $P_{ii}$, we need to consider two independent cases when state $i$ loops back on itself. First, the system remains in a state $i$ if the next item does not cause it to exceed the maximum weight. This probability is:\\
+\begin{align*}
+P(X_n + W_i \leq w_{max}) &= P_{NN} \\
+&= \sum\limits_{k=1}^{w_{max}} P(X_n > w_{max} -W_n | W_n=k)\cdot P(W_n=k) \\
+&= \sum\limits_{k=1}^{w_{max}} \left( \sum_{i > w_{max} -k} \pi_i \right) \cdot P(W_n=k)
+\end{align*}
+In the second case, the system remains in state $i$ if a '$w_i$ item' arrives which would push the current weight over the limit. This probability is:\\
+\begin{align*}
+P( X_n + w_i > w_{max}) \cdot P( W_n = w_i) =\sum_{i > w_{max} -w_i} \pi_i \cdot P( W_n = w_i)
+\end{align*}
+
+Knowing the transition matrix, we can now solve the eigenvalue equation to get the stationary probabilities. $\pi_i$ in this case gives the percentage of time the system spends in state $i$ - that is the percentage of time that the -uh oh guys, as I'm typing this I think this is wrong!!!!!!!!!!!!!!
 
 
 
