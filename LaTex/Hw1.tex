@@ -79,7 +79,10 @@ E(T_{FF}) = 1+ \frac{P_{FN}}{1 - P_{NN}}
 
 
 \section{Part 2}
-\subsection{Transition Matrix}
+\subsection{Markov Chain and Transition Matrix}
+We have $w_{max}$ number of states where $X_n$ identifies the weight of the current box.\\
+The transition probabilities from state $i$ to state $j$ are as follows:\\
+If the current weight is $i$ then we can get to a state $j$ where $i < j \leq w_{max}$ by adding an item of weight $j-i$ with probability $P(W=j-i)$. If $j$ is such that $j \leq i$ and $i+j>w_{max}$ then a new box must have been created with the arrival of item $j$ with probability $P(W=j)$. Otherwise, if $j$ is such that $j \leq i$ and $i+j<w_{max}$ then the probability $Pij=0$ as it is not possible for the current weigh to decrease without the creation of a new box.\\
 
 
 \subsection{Solution}
