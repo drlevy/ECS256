@@ -98,7 +98,7 @@ $P(Q=i)$ is the probability that item $i$ is the first item to go in any box. Th
 \begin{align*}
 P(Q=i) &= P(W=i | X_n > w_{max} - W) \\
 &= \frac{P( ( W=i ) \cap (X_n > w_{max} - W))}{P(X_n > w_{max} - W)}\\
-&= \frac{P(X_n > w_{max} -w_i)}{P(X_n > w_{max} - W)} \\
+&= \frac{P(X_n > w_{max} - i)}{P(X_n > w_{max} - W)} \\
 &= \dfrac{\sum\limits_{j > w_{max} - i} \pi_j }{\sum\limits_{k=1}^{w_{max}} \left(\sum\limits_{j > w_{max} -k} \pi_j \right) \cdot P(W=k)}
 \end{align*}
 
