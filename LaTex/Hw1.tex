@@ -181,8 +181,73 @@ Here is where we compare these results to our numerical answers from Q1, Q2, and
 %
 %Knowing the transition matrix, we can now solve the eigenvalue equation to get the stationary probabilities. $\pi_i$ in this case gives the percentage of time the system spends in state $i$ - that is the percentage of time that the -uh oh guys, as I'm typing this I think this is wrong!!!!!!!!!!!!!!
 
+\section{Part 4}
+Given $W_{max}$ = 10 and P(W = i) = ci/10, i = 1,2,...,10 with the sum equal to 1 you get c = 10/55 $\approx$ 0.18. Running the following code for the values Q4(TRUE,FALSE,FALSE), Q4(TRUE,TRUE,FALSE), and Q4(FALSE,FALSE,TRUE).
 
+\begin{lstlisting}[language = R]
+Q4 <- function(testQ1 = FALSE, testQ2 = FALSE, testQ3 = FALSE)
+{
+	vmax = 10
+	values = c(1:vmax)
+	prob = c(1:vmax)
+	values_in_new_box = c(rep(0,length(values)))
+	constant = vmax/sum(values)
+	prob = constant*values/vmax
+	current_weight = 0
+	number_of_boxes = 1
+	boxes_total_weight = 0
+	items = 100000
+	for(i in 1:items)
+	{
+		random_value = sample(values, 1, TRUE, prob)
+		boxes_total_weight = boxes_total_weight + random_value
+		
+		current_weight = current_weight + random_value
+		if( current_weight > vmax )
+		{
+			number_of_boxes = number_of_boxes + 1
+			current_weight = random_value
+			values_in_new_box[random_value] = values_in_new_box[random_value] + 1
+		}
+	}
+	
+	number_of_items_per_box = items/number_of_boxes
+	average_weight_per_box = boxes_total_weight/number_of_boxes
+	
+	values_in_new_box = values_in_new_box/number_of_boxes
+	
+	if(testQ1 == TRUE)
+	{
+		return(number_of_items_per_box)
+	}
+	if(testQ2 == TRUE)
+	{
+		return(average_weight_per_box)
+	}
+	if(testQ3 == TRUE)
+	{
+		return(values_in_new_box)
+	}
+}
 
+\end{lstlisting}
+
+This code yields the following simulated values for 100,000 samples. For the average number of items per box we get 1.132131. For the average weight per box we get 7.933018. For the probability of each weight starting a box we get the following table.
+\begin{center}
+\begin{tabu}{ |c|c|c|c|c|c| } 
+	\hline
+	i & 1 & 2 & 3 & 4 & 5 \\
+	\hline
+	P(Q = i) & 0.004532167 & 0.017698112 & 0.035645494 & 0.059699971 & 0.083403204   \\ 
+	\hline
+	i & 6 & 7 & 8 & 9 & 10\\
+	\hline
+	P(Q = i) & 0.111683927 & 0.136916767 & 0.160178114 & 0.184130617 & 0.206100297 \\
+	\hline
+\end{tabu} 
+\end{center}
+
+Here is where we compare these results to our numerical answers from Q1, Q2, and Q3.
 
 \end{document}
 
