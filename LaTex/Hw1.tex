@@ -16,10 +16,10 @@ $ W $ is the random variable for the weight of incoming item.\\
 
 \subsection*{Transition matrix}
 The transition probabilities are as follows:\\
-$ P_{FF} $ is the probability of going from state ``New box'' to state ``New box''. This happens when the weight of the new box (that has a single item) plus the incoming item exceeds the maximum allowed. Hence, we have a transition from one new box to another new box.\\
-$ P_{NF} $ is the probability of going from state ``Old box'' to state ``New box''. This happens when the weight of the current box plus the new item exceeds the maximum weight. Hence, we have a transition to a new box to accommodate the newest item.\\
-$ P_{FN} $ is the probability of going from state ``New box'' to state ``Old box''. This happens when the new box is able to accept the newest item and thereby becoming an ``Old box''.\\
-$ P_{NN} $ is the probability of going from state ``Old box'' to state ``Old box''. This happens when our current box (with 2 or more items) can accommodate the newest item while maintaining maximum weight. Therefore, there is not a need for a new box. \\
+$ P_{FF} $ is the probability of going from state ``First item'' to state ``First item''. This happens when the weight of the new box (that has a single item) plus the incoming item exceeds the maximum allowed. Hence, we have a transition from one new box to another new box.\\
+$ P_{NF} $ is the probability of going from state ``Not first item'' to state ``First item''. This happens when the weight of the current box plus the new item exceeds the maximum weight. Hence, we have a transition to a new box to accommodate the newest item.\\
+$ P_{FN} $ is the probability of going from state ``First item'' to state ``Not first item''. This happens when the new box is able to accept the newest item and thereby becoming an ``Not First item''.\\
+$ P_{NN} $ is the probability of going from state ``Not first item'' to state ``Not first item''. This happens when our current box (with 2 or more items) can accommodate the newest item while maintaining maximum weight. Therefore, there is not a need for a new box. \\
 
 Mathematically, by conditioning on the item at time $ n $ we have:\\
 \begin{align*}
@@ -43,8 +43,8 @@ P(W > w_{max} -X | W=k) &= \sum_{i > w_{max}-k} P(X = i)\\
 
 Putting everything together, \\
 \begin{align*}
-P_{FF} &= P_{NF} = \sum\limits_{k=1}^{w_{max}} \left(\sum_{i \leq w_{max} -k} \pi_i \right) \cdot P(W=k)  \\
-P_{FN} &= P_{NN} = \sum\limits_{k=1}^{w_{max}} \left(\sum_{i > w_{max} -k} \pi_i \right) \cdot P(W=k) \\
+P_{FF} &= P_{NF} = \sum\limits_{k=1}^{w_{max}} \left(\sum_{i > w_{max} -k} \pi_i \right) \cdot P(W=k)  \\
+P_{FN} &= P_{NN} = \sum\limits_{k=1}^{w_{max}} \left(\sum_{i \leq w_{max} -k} \pi_i \right) \cdot P(W=k) \\
 \end{align*}
 
 
@@ -79,14 +79,18 @@ E(T_{FF}) = 1+ \frac{P_{FN}}{1 - P_{NN}}
 
 
 \section{Part 2}
+\subsection{Transition Matrix}
+
+
+\subsection{Solution}
 The long run mean weight per box will be a weighted sum of average time for each $X_n$. Luckily, this is the $\pi_i$. Therefore, the long run mean weight per box is:
 \begin{align*}
-\sum_{i=1}^{W_{max}} i*\pi_i
+\sum_{i=1}^{w_{max}} i*\pi_i
 \end{align*}
 
 
 \section{Part 3}
-$P(Q=i)$ is the probability that item $i$ is the first item to go in any box. Therefore, we condition that a new box is  
+$P(Q=i)$ is the probability that item $i$ is the first item to go in any box. Therefore, we condition that a new box is created to get the probability item $i$ is first item in the new box.\\
 
 \begin{align*}
 P(Q=i) &= P(W=i | X_n > w_{max} - W) \\
