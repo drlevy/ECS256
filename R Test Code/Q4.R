@@ -80,7 +80,7 @@ CreateExampleTransitionMatrix <- function(size)
   {
     for(j in 1:size)
     {
-      pij[i,j] = ExampleMatrix(i,j,size,prob)
+      pij[i,j] = MatrixTransitions(i,j,size,prob)
     }
   }
   
