@@ -23,12 +23,12 @@ $ P_{NN} $ is the probability of going from state ``Old box'' to state ``Old box
 
 Mathematically, by conditioning on the item at time $ n $ we have:\\
 \begin{align*}
-P_{FF} &= P_{NF} &= P(X > w_{max} -W) &= \sum\limits_{k=1}^{w_{max}} P(X > w_{max} -W | W=k)\cdot P(W=k)  \\
-P_{NN} &= P_{FN} &= P(X \leq w_{max} -W) &=\sum\limits_{k=1}^{w_{max}} P(X \leq w_{max} -W | W=k)\cdot P(W=k) \\
+P_{FF} &= P_{NF} &= P(W > w_{max} -X) &= \sum\limits_{k=1}^{w_{max}} P(W > w_{max} -X | W=k)\cdot P(W=k)  \\
+P_{NN} &= P_{FN} &= P(W \leq w_{max} -X) &=\sum\limits_{k=1}^{w_{max}} P(W \leq w_{max} -X | W=k)\cdot P(W=k) \\
 \end{align*}
-Now, $ P(X \leq w_{max} -W | W=k) $ is the probability that the weight of the current box is less than or equal to $ w_{max} - k $. \\
+Now, $ P(W \leq w_{max} -X | W=k) $ is the probability that the weight of the current box is less than or equal to $ w_{max} - k $. \\
 \begin{align*}
-P(X \leq w_{max} - W| W=k) &= P(X \leq w_{max} -k)\\
+P(W \leq w_{max} - X| W=k) &= P(X \leq w_{max} -k)\\
 &= \sum_{i \leq w_{max}-k} P(X = i) \\
 &= \sum_{i \leq w_{max} - k} \pi_i \\
 \end{align*}
@@ -37,7 +37,7 @@ In other words, the probability that the current box weighs more than $ w_{max} 
 
 Similarly, we have \\
 \begin{align*}
-P(X > w_{max} -W | W=k) &= \sum_{i > w_{max}-k} P(X = i)\\ 
+P(W > w_{max} -X | W=k) &= \sum_{i > w_{max}-k} P(X = i)\\ 
 &= \sum_{i > w_{max} -k} \pi_i \\
 \end{align*}
 
@@ -53,12 +53,12 @@ Finally, the long run average number of items in any box is the average time for
 To find $ E(T_{FF}) $, we follow the similar argument in the book. \\
 First, we condition on the first stop $ U $. 
 \begin{align*}
-E(T_{FF}) = P_{FN}\cdot E(T_{FF}|U=O)+P_{FF}\cdot E(T_{FF}|U=F)
+E(T_{FF}) = P_{FN}\cdot E(T_{FF}|U=N)+P_{FF}\cdot E(T_{FF}|U=F)
 \end{align*}
 where,\\
 \begin{align*}
 E(T_{FF}|U=F) &= 1 \\
-E(T_{FF}|U=O) &= 1+E(T_{NF})
+E(T_{FF}|U=N) &= 1+E(T_{NF})
 \end{align*}
 Simplifying the above, we arrive at\\
 \begin{align*}
@@ -86,12 +86,13 @@ The long run mean weight per box will be a weighted sum of average time for each
 
 
 \section{Part 3}
-$P(Q=i)$ is the probability that  
+$P(Q=i)$ is the probability that item $i$ is the first item to go in any box. Therefore, we condition that a new box is  
 
 \begin{align*}
-P(Q=i) &= P(W=i | X_n > w_{max} - w_i) \\
-&= \frac{P(X_n > w_{max} -w_i)}{P(X_n > w_{max} - W}) \\
-&= \dfrac{\sum\limits_{i > w_{max} -w_i} \pi_i }{\sum\limits_{k=1}^{w_{max}} \left(\sum\limits_{i \leq w_{max} -k} \pi_i \right) \cdot P(W=k)}
+P(Q=i) &= P(W=i | X_n > w_{max} - W) \\
+&= \frac{P( ( W=i ) \cap (X_n > w_{max} - W))}{P(X_n > w_{max} - W)}\\
+&= \frac{P(X_n > w_{max} -w_i)}{P(X_n > w_{max} - W)} \\
+&= \dfrac{\sum\limits_{j > w_{max} - i} \pi_j }{\sum\limits_{k=1}^{w_{max}} \left(\sum\limits_{j > w_{max} -k} \pi_j \right) \cdot P(W=k)}
 \end{align*}
 
 \section{Part 4}
@@ -181,73 +182,8 @@ Here is where we compare these results to our numerical answers from Q1, Q2, and
 %
 %Knowing the transition matrix, we can now solve the eigenvalue equation to get the stationary probabilities. $\pi_i$ in this case gives the percentage of time the system spends in state $i$ - that is the percentage of time that the -uh oh guys, as I'm typing this I think this is wrong!!!!!!!!!!!!!!
 
-\section{Part 4}
-Given $W_{max}$ = 10 and P(W = i) = ci/10, i = 1,2,...,10 with the sum equal to 1 you get c = 10/55 $\approx$ 0.18. Running the following code for the values Q4(TRUE,FALSE,FALSE), Q4(TRUE,TRUE,FALSE), and Q4(FALSE,FALSE,TRUE).
 
-\begin{lstlisting}[language = R]
-Q4 <- function(testQ1 = FALSE, testQ2 = FALSE, testQ3 = FALSE)
-{
-	vmax = 10
-	values = c(1:vmax)
-	prob = c(1:vmax)
-	values_in_new_box = c(rep(0,length(values)))
-	constant = vmax/sum(values)
-	prob = constant*values/vmax
-	current_weight = 0
-	number_of_boxes = 1
-	boxes_total_weight = 0
-	items = 100000
-	for(i in 1:items)
-	{
-		random_value = sample(values, 1, TRUE, prob)
-		boxes_total_weight = boxes_total_weight + random_value
-		
-		current_weight = current_weight + random_value
-		if( current_weight > vmax )
-		{
-			number_of_boxes = number_of_boxes + 1
-			current_weight = random_value
-			values_in_new_box[random_value] = values_in_new_box[random_value] + 1
-		}
-	}
-	
-	number_of_items_per_box = items/number_of_boxes
-	average_weight_per_box = boxes_total_weight/number_of_boxes
-	
-	values_in_new_box = values_in_new_box/number_of_boxes
-	
-	if(testQ1 == TRUE)
-	{
-		return(number_of_items_per_box)
-	}
-	if(testQ2 == TRUE)
-	{
-		return(average_weight_per_box)
-	}
-	if(testQ3 == TRUE)
-	{
-		return(values_in_new_box)
-	}
-}
 
-\end{lstlisting}
-
-This code yields the following simulated values for 100,000 samples. For the average number of items per box we get 1.132131. For the average weight per box we get 7.933018. For the probability of each weight starting a box we get the following table.
-\begin{center}
-\begin{tabu}{ |c|c|c|c|c|c| } 
-	\hline
-	i & 1 & 2 & 3 & 4 & 5 \\
-	\hline
-	P(Q = i) & 0.004532167 & 0.017698112 & 0.035645494 & 0.059699971 & 0.083403204   \\ 
-	\hline
-	i & 6 & 7 & 8 & 9 & 10\\
-	\hline
-	P(Q = i) & 0.111683927 & 0.136916767 & 0.160178114 & 0.184130617 & 0.206100297 \\
-	\hline
-\end{tabu} 
-\end{center}
-
-Here is where we compare these results to our numerical answers from Q1, Q2, and Q3.
 
 \end{document}
 
