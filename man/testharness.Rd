@@ -28,7 +28,6 @@ The example matrix that is created reflects the following problems:\cr\cr
 All infinite case calculations are done with a convergence criterion of 0.1.
 }
 \examples{
-testharness(FALSE,FALSE,FALSE)
-Get expected hitting times for continuous, infinite markov chain.
+testharness(FALSE,TRUE,TRUE)
 }
 

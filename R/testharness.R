@@ -14,12 +14,11 @@
 #' @param calculate_stationary_dist boolean that indicates if you want to calculate the stationary distribution(TRUE) or expected hitting times(FALSE)
 #' @return The stationary distribution or expected hitting times of the indicated matrix.
 #' @examples 
-#' testharness(FALSE,FALSE,FALSE)
-#' Get expected hitting times for continuous, infinite markov chain.
+#' testharness(FALSE,TRUE,TRUE)
 #' @export
 testharness <- function(use_discrete_markov_chain = TRUE, use_finite_state = TRUE, calculate_stationary_dist = TRUE)
 {
-  qidef = NULL
+  qidef <- NULL
   
   if(use_discrete_markov_chain) {
     if(use_finite_state) {
@@ -56,9 +55,9 @@ testharness <- function(use_discrete_markov_chain = TRUE, use_finite_state = TRU
       pijdef[3,2] <- 1.0
       
       qidef <- c(rep(0,3))
-      qidef[1] = 0.25
-      qidef[2] = 0.175
-      qidef[3] = 0.08
+      qidef[1] <- 0.25
+      qidef[2] <- 0.175
+      qidef[3] <- 0.08
     } else {
       # TODO: infinite, continuous case
     }    

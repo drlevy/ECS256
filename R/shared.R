@@ -9,6 +9,8 @@ validateInput <- function(mc) {
         stop("pijdef and qidef do not have an equal number of states.")
       } 
     }
+  } else if(length (mc$pijdef) < 2) {
+    stop("Ignoring single state markov chain.")
   }
 }
 
