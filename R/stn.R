@@ -1,3 +1,4 @@
+#' TODO: Continuous example.
 #' @title Find stationary distribution
 #' @description Input an mc to get a vector of stationary probabilities for each markov state.
 #' @param mc of type mc containing a defined pijdef.
@@ -16,36 +17,35 @@
 stn <- function(mc, e = 0.01) {
   validateInput(mc)
 
-  if (class(mc$pijdef) == "function") {
-    infiniteStn(mc$pijdef, e)
+  # Default to discrete markov chain.
+  m <- mc$pijdef
+  func <- findDiscretePi
+  
+  # If qidef is present, switch to continuous mc.
+  if (!is.null(mc$qidef)) {
+    m <- qijdef(mc)
+    func <- findContinuousPi
+  } 
+  
+  # Handle convergence if function input (infinite)
+  if (class(m) == "function") {
+    infiniteHelper(m, func, e)
   } else {
-    findPi(mc$pijdef)
+    func(m)
   }
 }
 
-infiniteStn <- function(pFunc, e) {
-  n <- 10
-  pi <- c(rep(0, n))
-  repeat {
-    p <- matrix(rep(0, n*n),nrow = n)
-    for (i in 1:n) {
-      for (j in 1:n) {
-        p[i, j] <- pFunc(i, j)
-      }
-    }
-    newPi <- findPi(p)
-    if (dist(rbind(pi, newPi[1:NROW(pi)])) <= e) {
-      return(newPi)
-    }
-    pi <- newPi
-    n <- 2*n
-  }
-}
-
-findPi <- function(p) {
+findDiscretePi <- function(p) {
   n <- nrow(p)
   imp <- diag(n) - t(p)
   imp[n,] <- rep(1, n)
   rhs <- c(rep(0, n-1), 1)
   solve(imp, rhs)
+}
+
+findContinuousPi <- function(q) {
+  n <- nrow(q)
+  q[n,] <- rep(1, n)
+  rhs <- c(rep(0, n-1), 1)
+  solve(q, rhs)
 }

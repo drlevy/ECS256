@@ -4,14 +4,19 @@
 \alias{mc}
 \title{Markov chain definition}
 \usage{
-mc(pijdef = NULL)
+mc(pijdef = NULL, qidef = NULL)
 }
 \arguments{
 \item{pijdef}{is either a square finite transition matrix
 or a function(i, j) defining a (potentially) infinite transition matrix.}
+
+\item{qidef}{is a vector containing the holding-time of each state in a continuous markov chain
+or a function(i, j) defining a (potentially) infinite holding-time vector.}
 }
 \description{
-Construct and initialize with some pijdef.
+Construct and initialize either a continuous or discrete markov chain.
+Input will be assumed discrete unless qidef is defined.
+Input will be assumed finite unless pijdef is a function.
 }
 \examples{
 pijdef = matrix(rep(0,9), nrow=3)

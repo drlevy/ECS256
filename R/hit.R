@@ -1,3 +1,5 @@
+#  TODO: Allow i,j as input for a specific sub-matrix.
+#  TODO: Continuous example.
 #' @title Find expected hitting times
 #' @description Input an mc to get a submatrix of hitting times where M[i,j] is the E(Tij).
 #' @param mc of type mc containing a defined pijdef.
