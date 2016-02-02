@@ -1,3 +1,4 @@
+%
 \documentclass[10pt,a4paper]{article}
 \usepackage[latin1]{inputenc}
 \usepackage{amsmath}
@@ -7,13 +8,14 @@
 \usepackage{tabu}
 \usepackage[width=14.00cm, height=25.00cm]{geometry}
 \begin{document}
-\section{Part 1}
+
+\section{Question A}
+\subsection{Part 1}
 \subsection*{Markov Chain}
 We have two states :{First item, Not first item}. \\
 The system is in ``First item'' when we have exactly one item in the current box that is being filled. The system is in ``Not first item'' when the current box contains more than one item.\\
 $ X $ is the random variable for the weight of the current box.\\
 $ W $ is the random variable for the weight of incoming item.\\
-
 \subsection*{Transition matrix}
 The transition probabilities are as follows:\\
 $ P_{FF} $ is the probability of going from state ``First item'' to state ``First item''. This happens when the weight of the new box (that has a single item) plus the incoming item exceeds the maximum allowed. Hence, we have a transition from one new box to another new box.\\
@@ -78,21 +80,21 @@ E(T_{FF}) = 1+ \frac{P_{FN}}{1 - P_{NN}}
 \end{align*}
 
 
-\section{Part 2}
-\subsection{Markov Chain and Transition Matrix}
+\subsection{Part 2}
+\subsection*{Markov Chain and Transition Matrix}
 We have $w_{max}$ number of states where $X_n$ identifies the weight of the current box.\\
 The transition probabilities from state $i$ to state $j$ are as follows:\\
 If the current weight is $i$ then we can get to a state $j$ where $i < j \leq w_{max}$ by adding an item of weight $j-i$ with probability $P(W=j-i)$. If $j$ is such that $j \leq i$ and $i+j>w_{max}$ then a new box must have been created with the arrival of item $j$ with probability $P(W=j)$. Otherwise, if $j$ is such that $j \leq i$ and $i+j<w_{max}$ then the probability $Pij=0$ as it is not possible for the current weight to decrease without the creation of a new box.\\
 
 
-\subsection{Solution}
+\subsection*{Solution}
 The long run mean weight per box will be a weighted sum of average time for each $X_n$. Luckily, this is the $\pi_i$. Therefore, the long run mean weight per box is:
 \begin{align*}
 \sum_{i=1}^{w_{max}} i*\pi_i
 \end{align*}
 
 
-\section{Part 3}
+\subsection{Part 3}
 $P(Q=i)$ is the probability that item $i$ is the first item to go in any box. Therefore, we condition that a new box is created to get the probability item $i$ is first item in the new box.\\
 
 \begin{align*}
@@ -102,7 +104,7 @@ P(Q=i) &= P(W=i | X_n > w_{max} - W) \\
 &= \dfrac{\sum\limits_{j > w_{max} - i} \pi_j }{\sum\limits_{k=1}^{w_{max}} \left(\sum\limits_{j > w_{max} -k} \pi_j \right) \cdot P(W=k)}
 \end{align*}
 
-\section{Part 4}
+\subsection{Part 4}
 Given $W_{max}$ = 10 and P(W = i) = ci/10, i = 1,2,...,10 with the sum equal to 1 you get c = 10/55 $\approx$ 0.18. Running the following code for the values Q4(TRUE,FALSE,FALSE), Q4(TRUE,TRUE,FALSE), and Q4(FALSE,FALSE,TRUE).
  
 \begin{lstlisting}[language = R]
@@ -150,9 +152,7 @@ Q4 <- function(testQ1 = FALSE, testQ2 = FALSE, testQ3 = FALSE)
         return(values_in_new_box)
     }
 }
- 
 \end{lstlisting}
- 
 This code yields the following simulated values for 100,000 samples. For the average number of items per box we get 1.132131. For the average weight per box we get 7.933018. For the probability of each weight starting a box we get the following table.
 \begin{center}
 \begin{tabu}{ |c|c|c|c|c|c| }
@@ -167,32 +167,40 @@ This code yields the following simulated values for 100,000 samples. For the ave
     \hline
 \end{tabu}
 \end{center}
- 
-Using the given values of P(W = i) = c*i/10. Q1 of our solutions produces 1.132473 which is 0.0003 off the simulated value. For Q2 however, the summation produced 7.576778 in comparison to the simulated value of $\approx$7.9. We are not entirely sure why this difference exists. Similarly, Q3 has invalid probabilities when you calculate using our formula. This would indicate our formulas are not 100 percent correct.\\
-
-%Looking at the system differently, we can model using a different Markov chain:\\
-%The states are $ S_1, S_2, S_3, ..., S_m$, where $m$ is $w_{max}$ and $S_i$ represents the state where $w_i$ is the first item in the current box.\\
-%
-%The transition probability $P_{ij}$ of going from a state $i$ to a state $j\neq i$ is equalled to the probability of needing a new box while in state $i$ (first item is $w_i$) to store a new item weighing $w_j$ (the first item of the new box - state $j$). This probability is:\\
-%\begin{align*}
-%P_{ij}= P(X_n + w_k > w_{max}) \cdot P( W_n = w_k)= \sum_{i > w_{max} -k} \pi_i \cdot P( W_n = w_k)
-%\end{align*}
-%To find $P_{ii}$, we need to consider two independent cases when state $i$ loops back on itself. First, the system remains in a state $i$ if the next item does not cause it to exceed the maximum weight. This probability is:\\
-%\begin{align*}
-%P(X_n + W_i \leq w_{max}) &= P_{NN} \\
-%&= \sum\limits_{k=1}^{w_{max}} P(X_n > w_{max} -W_n | W_n=k)\cdot P(W_n=k) \\
-%&= \sum\limits_{k=1}^{w_{max}} \left( \sum_{i > w_{max} -k} \pi_i \right) \cdot P(W_n=k)
-%\end{align*}
-%In the second case, the system remains in state $i$ if a '$w_i$ item' arrives which would push the current weight over the limit. This probability is:\\
-%\begin{align*}
-%P( X_n + w_i > w_{max}) \cdot P( W_n = w_i) =\sum_{i > w_{max} -w_i} \pi_i \cdot P( W_n = w_i)
-%\end{align*}
-%
-%Knowing the transition matrix, we can now solve the eigenvalue equation to get the stationary probabilities. $\pi_i$ in this case gives the percentage of time the system spends in state $i$ - that is the percentage of time that the -uh oh guys, as I'm typing this I think this is wrong!!!!!!!!!!!!!!
-
-
-
-
+Using the given values of P(W = i) = c*i/10. Q1 of our solutions produces 1.132473 which is 0.0003 off the simulated value. For Q2 however, the summation produced 7.576778 in comparison to the simulated value of $\approx$7.9. We are not entirely sure why this difference exists. Similarly, Q3 has invalid probabilities when you calculate using our formula. This would indicate our formulas are not 100 percent correct.
+\section{Question B}
+Define $X_n$ as a bernoulli random variable such that,
+\[X_n = \begin{cases} 
+A & \text{bus arrival at time n} \\
+NA & \text{no bus arrival at time n} \\
+\end{cases}\]
+We can then define a DTMC on \(X_n\) with transition probabilities,
+\begin{gather*}
+P(X_{t+1}=A|X_t=A)\\
+P(X_{t+1}=NA|X_t=A)\\
+P(X_{t+1}=A|X_t=NA)\\
+P(X_{t+1}=A|X_t=NA)
+\end{gather*}
+We are interested in finding the pmf,
+\begin{align*}
+P(D_t=w)
+\end{align*}
+Representing the amount of time, $w$, a traveler has to wait for an arriving bus given the traveler starts waiting at time $t$.\\
+\\
+For the case $P(D_t=0)$, a bus arriving when the traveler starts waiting, either a bus appeared at time $t$ after there had been no bus at $t-1$ or the buses arrived consecutively; i.e.,
+\begin{align*}
+P(D_t=0)=P(X_t=A|X_{t-1}=NA)+P(X_t=A|X_{t-1}=A)
+\end{align*}
+Using the independence of bus arrivals, we can then generalize the waiting time from the initial time the traveler starts waiting to the time when a bus finally arrives (for \(w\geq1\)),
+\begin{gather*}
+P(D_t=w)=P(A|NA)P(NA|NA)^{w-1}P(NA|NA)+P(A|NA)P(NA|NA)^{w-1}P(NA|A)\\
+=P(A|NA)P(NA|NA)^{w-1}[P(NA|NA)+P(NA|A)]
+\end{gather*}
+\section{Question C}
+\subsection{Part 1}
+TODO
+\subsection{Part 2}
+TODO
 \end{document}
 
 
