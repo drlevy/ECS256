@@ -2,27 +2,32 @@
 % Please edit documentation in R/testharness.R
 \name{testharness}
 \alias{testharness}
-\title{Create an example Pijdef matrix and calculate the stationary distribution or expected hitting times}
+\title{Create an example markov chain and calculate the stationary distribution or expected hitting times}
 \usage{
-testharness(use_finite_state = TRUE, calculate_stationary_dist = TRUE)
+testharness(use_discrete_markov_chain = TRUE, use_finite_state = TRUE,
+  calculate_stationary_dist = TRUE)
 }
 \arguments{
+\item{use_discrete_markov_chain}{boolean that indicates if you want to use a discrete(TRUE) or continuous(FALSE) markov chain.}
+
 \item{use_finite_state}{boolean that indicates if you want to use a finite state(TRUE) matrix or infinite(FALSE)}
 
-\item{calculate_stationary_dist}{boolean that indicates if you want to calculate the stationary distrubtion(TRUE) or expected hitting times(FALSE)}
+\item{calculate_stationary_dist}{boolean that indicates if you want to calculate the stationary distribution(TRUE) or expected hitting times(FALSE)}
 }
 \value{
 The stationary distribution or expected hitting times of the indicated matrix.
 }
 \description{
-The example matrix that is created reflects the following problems:
- For the finite case, we create a matrix that symbolizes flipping a coin and the probabilties of getting heads in a row. State 0 means we just got a tails. State 1 means we have 1 head. State 2 means we have gotten 2 heads in a row. This requires a 3x3 matrix since we have three states.
- The infinite case creates a function that represents an infinite matrix and a birth/death process of having the probability of 0.4 for birth and 0.6 for death.
+The example matrix that is created reflects the following problems:\cr\cr
+* For the discrete case:\cr
+** For the finite case, we create a matrix that symbolizes flipping a coin and the probabilties of getting heads in a row. State 0 means we just got a tails. State 1 means we have 1 head. State 2 means we have gotten 2 heads in a row. This requires a 3x3 matrix since we have three states.\cr
+** The infinite case creates a function that represents an infinite matrix and a birth/death process of having the probability of 0.4 for birth and 0.6 for death.\cr\cr
+* For the continuous case:\cr
+** For the finite case, we simulate a model with two machines s.t. mean wait when one machine is working is 1/25, 1/20 with both, and a mean repair time of 1/8.\cr
+** TODO: infinite, continuous case\cr\cr
 All infinite case calculations are done with a convergence criterion of 0.1.
 }
 \examples{
-testharness(TRUE,TRUE)
-testharness(FALSE,TRUE)
-testharness(FALSE,FALSE)
+testharness(FALSE,TRUE,TRUE)
 }
 

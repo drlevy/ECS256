@@ -7,12 +7,12 @@
 hit(mc, e = 0.01)
 }
 \arguments{
-\item{mc}{of type mc containing a defined pijdef.}
+\item{mc}{of type mc containing a defined markov chain}
 
-\item{e}{floating point convergence criterion for infinite pijdef.}
+\item{e}{floating point convergence criterion for infinite mc.}
 }
 \value{
-The submatrix of expected hitting times for mc$pijdef.
+The submatrix of expected hitting times for mc.
 }
 \description{
 Input an mc to get a submatrix of hitting times where M[i,j] is the E(Tij).

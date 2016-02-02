@@ -7,15 +7,18 @@
 stn(mc, e = 0.01)
 }
 \arguments{
-\item{mc}{of type mc containing a defined pijdef.}
+\item{mc}{of type mc containing a defined markov chain.}
 
-\item{e}{floating point convergence criterion for infinite pijdef.}
+\item{e}{floating point convergence criterion for infinite mc.}
 }
 \value{
-The stationary distribution vector for mc$pijdef.
+The stationary distribution vector for mc.
 }
 \description{
 Input an mc to get a vector of stationary probabilities for each markov state.
+}
+\details{
+TODO: Continuous example.
 }
 \examples{
 pijdef = matrix(rep(0,9), nrow=3)

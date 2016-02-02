@@ -1,0 +1,27 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{tabu}
+\usepackage[width=14.00cm, height=25.00cm]{geometry}
+\begin{document}
+\section{Math Problem B}
+
+\section{Math Problem C}
+\subsection{Continuous Markov Chain}
+The continuous Markov chain is defined for (i,j,k) where i represents the number of customers being served, j represents the queue for the manager, and k represents the number of people in the general queue. This model follows the model described on the blog. If the queue is empty and i is not equal to the number of servers available then any new customer goes immediately to a server with rate alpha*(1-p) and to the manager with alpha*p rate. The values of i,j,k are bounded by i + j + k $<=$ queue buffer. When the queue is full, no new customers can show up.
+
+\subsection{Proportion of calls denied}
+The proportion of calls denied is equal to the number of calls denied divided by the total number of calls. This is equal to the P(i + j + k = b AND we get a call) = P(i+j+k=b)*P(we get a call). The probability we are in a full state is equal to:\\
+$\sum\limits_{i+j+k = b} \pi_{ijk}*P(call) = \sum\limits_{i+j+k = b} \pi_{ijk}*\frac{\alpha}{\alpha + \sigma + \omega + \mu}$
+\subsection{Proportion of customers leaving due to impatience}
+The proportion of customers leaving due to impatience is equal to the number of people would leave divided by the total number of people. The argument flows similar to above.\\
+$\sum\limits_{k > 0 or j > 0} \pi_{ijk}*\frac{\omega}{\alpha + \sigma + \omega + \mu}*(k+j)$
+\section{Simulation}
+
+
+\end{document}
+
+
