@@ -1,3 +1,4 @@
+%
 \documentclass[10pt,a4paper]{article}
 \usepackage[latin1]{inputenc}
 \usepackage{amsmath}
@@ -7,8 +8,40 @@
 \usepackage{tabu}
 \usepackage[width=14.00cm, height=25.00cm]{geometry}
 \begin{document}
-\section{Math Problem B}
 
+\section{Math Problem B}
+Define $X_n$ as a bernoulli random variable such that,
+\[X_n = \begin{cases} 
+A & \text{bus arrival at time n} \\
+NA & \text{no bus arrival at time n} \\
+\end{cases}\]
+We can then define a DTMC on \(X_n\) with transition probabilities,
+\begin{gather*}
+P(X_{t+1}=A|X_t=A)\\
+P(X_{t+1}=NA|X_t=A)\\
+P(X_{t+1}=A|X_t=NA)\\
+P(X_{t+1}=A|X_t=NA)
+\end{gather*}
+We are interested in finding the pmf,
+\begin{align*}
+P(D_t=w)
+\end{align*}
+Representing the amount of time, $w$, a traveler has to wait for an arriving
+bus given the traveler starts waiting at time $t$.\\
+\\
+For the case $P(D_t=0)$, a bus arriving when the traveler starts waiting,
+either a bus appeared at time $t$ after there had been no bus at $t-1$ or
+the buses arrived consecutively; i.e.,
+\begin{align*}
+P(D_t=0)=P(X_t=A|X_{t-1}=NA)+P(X_t=A|X_{t-1}=A)
+\end{align*}
+Using the independence of bus arrivals, we can then generalize the waiting
+time from the initial time the traveler starts waiting to the time when a
+bus finally arrives (for \(w\geq1\)),
+\begin{gather*}
+P(D_t=w)=P(A|NA)P(NA|NA)^{w-1}P(NA|NA)+P(A|NA)P(NA|NA)^{w-1}P(NA|A)\\
+=P(A|NA)P(NA|NA)^{w-1}[P(NA|NA)+P(NA|A)]
+\end{gather*}
 \section{Math Problem C}
 \subsection{Continuous Markov Chain}
 The continuous Markov chain is defined for (i,j,k) where i represents the number of customers being served, j represents the queue for the manager, and k represents the number of people in the general queue. This model follows the model described on the blog. If the queue is empty and i is not equal to the number of servers available then any new customer goes immediately to a server with rate alpha*(1-p) and to the manager with alpha*p rate. The values of i,j,k are bounded by i + j + k $<=$ queue buffer. When the queue is full, no new customers can show up.
