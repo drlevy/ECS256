@@ -51,7 +51,7 @@ $\sum\limits_{i+j+k = b} \pi_{ijk}*P(call) = \sum\limits_{i+j+k = b} \pi_{ijk}*\
 The proportion of customers leaving due to impatience is equal to the number of people would leave divided by the total number of people. The argument flows similar to above.\\
 $\sum\limits_{k > 0 or j > 0} \pi_{ijk}*\frac{\omega}{\alpha + \sigma + \omega + \mu}*(k+j)$
 \section{Simulation}
-We have two difference simulations. One version creates the $P_{ij}$ matrix and the holding times and uses the stationary distribution with the equations above to solve for the proportion of calls denied and the proportion of customers leaving due to impatience. The other simulation uses the DES package created by Professor Matloff. We got significantly different answers with our two simulations. This could be because our equations above are not right or we have bugs in our code. The code is all submitted under R Test Code. Use ProblemC.r for the analytical simulation and S2Q3.r for the discrete simulation with DES. The continuous model we simulated was complex and non trivial which is most likely the reason for these discrepancies. Here are values we received for various rates.
+Using DES package, we created a discrete event simulation of the client-manager-server queue ("S2Q3.R") where the monitored discrete events are arrivals (simple and complex jobs), job completions, and line drop outs. The complex jobs are immediate recognized and forwarded to the manager queue without any time delays. The analytical results ("ProblemC.R") were calculated by forming $P_{ij}$ matrix and the holding times and uses the stationary distribution with the equations above to solve for the proportion of calls denied and the proportion of customers leaving due to impatience.There are some major differences between simulated and analytical results which is potentially a result of subtle program bugs.
 
 
 \resizebox{\columnwidth}{!}{%
@@ -62,8 +62,8 @@ We have two difference simulations. One version creates the $P_{ij}$ matrix and 
 		Analytical Solution & 3 & 6 & 0.3 & 0.7 & 0.5 & 0.3 & 0.2 & 0.0256 & 0.1818 \\
 		Analytical Solution & 4 & 8 & 0.2 & 3 & 2 & 0.2 & 0.05 & 0.381 & 0.067\\
 		\hline  
-		DES Simulation Solution & 3 & 6 & 0.3 & 0.7 & 0.5 & 0.3 & 0.2 & 0 & 1 \\
-			DES Simulation Solution & 4 & 8 & 0.2 & 3 & 2 & 0.2 & 0.05 & 0 & 1 \\
+		DES Simulation Solution & 3 & 6 & 0.3 & 0.7 & 0.5 & 0.3 & 0.2 & 0.2206 & 0 \\
+			DES Simulation Solution & 4 & 8 & 0.2 & 3 & 2 & 0.2 & 0.05 & 0.6650 & 1.67e-5 \\
 		\hline
 	\end{tabular}
 }
