@@ -29,11 +29,9 @@ P(D_t=w)
 Representing the amount of time, $w$, a traveler has to wait for an arriving
 bus given the traveler starts waiting at time $t$.\\
 \\
-For the case $P(D_t=0)$, a bus arriving when the traveler starts waiting,
-either a bus appeared at time $t$ after there had been no bus at $t-1$ or
-the buses arrived consecutively; i.e.,
+For the case $P(D_t=0)$, a bus arriving when the traveler starts waiting, a bus appeared at time $t$ after there had been no bus at $t-1$; i.e.,
 \begin{align*}
-P(D_t=0)=P(X_t=A|X_{t-1}=NA)+P(X_t=A|X_{t-1}=A)
+P(D_t=0)=P(X_t=A|X_{t-1}=NA)
 \end{align*}
 Using the independence of bus arrivals, we can then generalize the waiting
 time from the initial time the traveler starts waiting to the time when a
