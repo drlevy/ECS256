@@ -1,4 +1,4 @@
-Package: mc
+Package: cranmc
 Type: Package
 Title: Markov Chain
 Version: 0.1
